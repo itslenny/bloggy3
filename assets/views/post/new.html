@@ -1,0 +1,25 @@
+<h1>Create a post</h1>
+
+<form ng-submit="createPost()" name="newPostForm" novalidate>
+  <div class="form-group" ng-class="{ 'has-error': newPostForm.title.$touched && newPostForm.title.$invalid }">
+    <label>Title</label>
+    <input required ng-minlength="5" ng-maxlength="10" name="title" ng-model="newPost.title" type="text" class="form-control">
+
+    <div ng-if="newPostForm.title.$touched" ng-messages="newPostForm.title.$error" class="help-block">
+      <div ng-messages-include="/views/messages.html"></div>
+    </div>
+
+  </div>
+
+
+  <div class="form-group" ng-class="{ 'has-error': newPostForm.body.$touched && newPostForm.body.$invalid }">
+    <label>Body</label>
+    <textarea ng-minlength="3" required name="body" ng-model="newPost.body" class="form-control"></textarea>
+    <div ng-if="newPostForm.body.$touched" ng-messages="newPostForm.body.$error" class="help-block">
+      <div ng-messages-include="/views/messages.html"></div>
+    </div>
+  </div>
+
+  <button ng-disabled="newPostForm.$invalid" type="submit" class="btn btn-primary">Create Post</button>
+</form>
+
