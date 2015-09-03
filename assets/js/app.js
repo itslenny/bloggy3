@@ -30,6 +30,10 @@ BloggyApp.config(['$routeProvider','$locationProvider','sailsResourceProvider', 
     templateUrl:'/views/post/show.html',
     controller:'PostShowCtrl'
   })
+  .when('/test',{
+    templateUrl:'/views/test.html',
+    controller:'TestCtrl'
+  })
 
   .otherwise({
     templateUrl:'/views/404.html'

@@ -8,6 +8,7 @@
 module.exports = {
 
   attributes: {
+
     title:{
       type:'string',
       required: true
@@ -16,15 +17,20 @@ module.exports = {
       type:'text',
       required:true
     },
+    song:{
+      type:'json'
+    },
+
+    ////// relationships
     comments:{
       collection:'Comment',
       via:'post'
     },
-
     tags:{
       collection:'Tag',
       via:'posts'
     }
+    ///////
   }
 };
 

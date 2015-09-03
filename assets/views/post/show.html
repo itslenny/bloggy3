@@ -1,4 +1,32 @@
 <h1>{{post.title}}</h1>
 <em>{{post.createdAt | date:'short'}}</em>
-<p>{{post.body}}</p>
+<div ng-if="post.song" class="well row">
+  <h4>Listening to</h4>
+  <img ng-src="{{post.song.artworkUrl100}}" align="left">
+  <b>{{post.song.trackName}} by {{post.song.artistName}}</b><br>
+  <audio audioplayer controls ng-src="{{post.song.previewUrl | trustUrl}}"></audio>
+</div>
+<div class="row">
+  <p>{{post.body}}</p>
+</div>
+
+<form ng-submit="addComment()">
+  <textarea ng-model="comment.comment"></textarea>
+  <input type="submit" value="Post">
+</form>
+
+<div class="well" ng-repeat="item in post.comments">
+  {{item.id}}<br><br>
+  {{item.comment}}<br><br>
+  {{item.createdAt}}<br><br>
+</div>
+
+
+
+
+
+
+
+
+
 

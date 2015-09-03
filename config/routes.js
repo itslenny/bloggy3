@@ -34,6 +34,8 @@ module.exports.routes = {
 
   '/': 'PagesController.index',
 
+  'get /api/itunes/search' : 'ItunesController.search',
+
   "get *":{
     controller:"PagesController",
     action:"index",

@@ -1,11 +1,24 @@
-BloggyApp.controller('PostNewCtrl', ['$scope','Post','$location', function($scope, Post, $location){
+BloggyApp.controller('PostNewCtrl', ['$scope','Post','$location','$http', function($scope, Post, $location, $http){
 
   $scope.newPost = {
     title:'',
-    body:''
+    body:'',
+    song:null
   };
 
-  console.log('post new ctrl 123');
+  console.log('post new ctrl 345345');
+
+  $scope.getSongs = function(searchTerm){
+    console.log('searching...');
+    return $http({
+      url:'/api/itunes/search',
+      params:{
+        q:searchTerm
+      }
+    }).then(function(data){
+      return data.data.results;
+    });
+  }
 
   $scope.createPost = function(){
     //vaidate stuff her is an option
