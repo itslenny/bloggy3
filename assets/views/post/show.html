@@ -15,7 +15,7 @@
   <input type="submit" value="Post">
 </form>
 
-<div class="well" ng-repeat="item in post.comments">
+<div class="well" ng-repeat="item in currentComments">
   {{item.id}}<br><br>
   {{item.comment}}<br><br>
   {{item.createdAt}}<br><br>

@@ -2,19 +2,23 @@ BloggyApp.controller('PostShowCtrl', ['$scope','Post','$routeParams','PostCommen
 
   $scope.post={};
   $scope.comment={comment:''};
-  // $scope.currentComments=[];
+  $scope.currentComments=[];
 
   Post.get({id: $routeParams.id}).then(function(post){
     console.log(post);
     $scope.post = post;
-    // $scope.currentComments = post.comments;
+    $scope.currentComments = post.comments
   });
 
-  // PostComment.query({
-  //   post_id:$routeParams.id
-  // }).then(function(comments){
-  //   $scope.currentComments = comments
-  // });
+  function reloadComments(){
+    console.log('reloading comments');
+    PostComment.query({
+      post_id:$routeParams.id
+    }).then(function(comments){
+      $scope.currentComments = comments;
+    });
+  }
+
 
   $scope.addComment = function(){
     var newComment = new PostComment($scope.comment)
@@ -27,20 +31,29 @@ BloggyApp.controller('PostShowCtrl', ['$scope','Post','$routeParams','PostCommen
     });
   }
 
-  //doesn't seem to fire
-  // $rootScope.$on('$sailsResourceAddedTo',function(data){
-  //   console.log('event data',data);
-  //   $scope.currentComments = data.comments;
-  //   console.log('currentComments',$scope.currentComments);
-  // });
-
-  //fires when a comment is created
-  $rootScope.$on('$sailsResourceCreated',function(event, data){
-    //we have to make sure it's a comment
-    //and that it belongs to this post
-    if(data.model == 'comment' && data.id == $routeParams.id){
-      $scope.post.comments = data.data.comments;
+  //This triggers on whenever a comment is added
+  //to a post, but for some reason not if I posted it.
+  $rootScope.$on('$sailsResourceAddedTo',function(event, data){
+    console.log('resource added to message',event,data);
+    //if the added thing is "comments" and it was added to THIS post
+    if(data.attribute == 'comments' && data.id == $routeParams.id){
+      //the data only includes a comment id
+      //so we'll just reload all the comments
+      reloadComments();
     }
   });
 
+  //fires when a comment is created by me (only)
+  //doesn't fire when other people create comments for some reason
+  $rootScope.$on('$sailsResourceCreated',function(event, data){
+    console.log('resource created message',event,data);
+
+    //we have to make sure it's a comment
+    //and that it belongs to this post
+    if(data.model == 'comment' && data.id == $routeParams.id){
+      //this event gives us full the full array of comments
+      //so we just need to put it in the scope to update the view
+      $scope.currentComments = data.data.comments;
+    }
+  });
 }]);
