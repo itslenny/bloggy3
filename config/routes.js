@@ -36,6 +36,11 @@ module.exports.routes = {
 
   'get /api/itunes/search' : 'ItunesController.search',
 
+  //Auth routes
+  'get /api/auth':'AuthController.check',
+  'post /api/auth':'AuthController.login',
+  'delete /api/auth':'AuthController.logout',
+
   "get *":{
     controller:"PagesController",
     action:"index",

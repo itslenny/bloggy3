@@ -1,5 +1,6 @@
 BloggyApp.controller('PostShowCtrl', ['$scope','Post','$routeParams','PostComment','$rootScope', function($scope, Post, $routeParams, PostComment, $rootScope){
 
+  $rootScope.loading = true;
   $scope.post={};
   $scope.comment={comment:''};
   $scope.currentComments=[];
@@ -8,6 +9,7 @@ BloggyApp.controller('PostShowCtrl', ['$scope','Post','$routeParams','PostCommen
     console.log(post);
     $scope.post = post;
     $scope.currentComments = post.comments
+    $rootScope.loading = false;
   });
 
   function reloadComments(){
