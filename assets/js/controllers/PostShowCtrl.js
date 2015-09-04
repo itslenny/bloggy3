@@ -2,11 +2,12 @@ BloggyApp.controller('PostShowCtrl', ['$scope','Post','$routeParams','PostCommen
 
   $scope.post={};
   $scope.comment={comment:''};
-  $scope.currentComments=[];
+  // $scope.currentComments=[];
 
   Post.get({id: $routeParams.id}).then(function(post){
     console.log(post);
     $scope.post = post;
+    // $scope.currentComments = post.comments;
   });
 
   // PostComment.query({
@@ -26,11 +27,20 @@ BloggyApp.controller('PostShowCtrl', ['$scope','Post','$routeParams','PostCommen
     });
   }
 
-  $rootScope.$on('$sailsResourceAddedTo',function(data){
-    console.log(data);
-    $scope.$evalAsync(function(){
-      $scope.post.comments = data.comments;
-    });
+  //doesn't seem to fire
+  // $rootScope.$on('$sailsResourceAddedTo',function(data){
+  //   console.log('event data',data);
+  //   $scope.currentComments = data.comments;
+  //   console.log('currentComments',$scope.currentComments);
+  // });
+
+  //fires when a comment is created
+  $rootScope.$on('$sailsResourceCreated',function(event, data){
+    //we have to make sure it's a comment
+    //and that it belongs to this post
+    if(data.model == 'comment' && data.id == $routeParams.id){
+      $scope.post.comments = data.data.comments;
+    }
   });
 
 }]);
