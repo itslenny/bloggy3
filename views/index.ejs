@@ -3,6 +3,11 @@
     <a href="/">Home</a> |
     <a href="/about">About</a>
   </div>
+
+  <div id="loader" ng-if="$root.loading">
+    Loading...
+  </div>
+
   <ng-view></ng-view>
 </div>
 
