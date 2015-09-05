@@ -29,6 +29,10 @@ module.exports = {
     tags:{
       collection:'Tag',
       via:'posts'
+    },
+    owner:{
+      model:'User',
+      defaultsTo:null
     }
     ///////
   }

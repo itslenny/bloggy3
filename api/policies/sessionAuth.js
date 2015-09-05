@@ -12,11 +12,17 @@ module.exports = function(req, res, next) {
   // User is allowed, proceed to the next policy,
   // or if this is the last policy, the controller
   // req.session.user.roles.indexOf('admin') != -1
-  if (req.session.authenticated) {
+  if (req.session.user) {
     return next();
   }
 
   // User is not allowed
   // (default res.forbidden() behavior can be overridden in `config/403.js`)
-  return res.forbidden('You are not permitted to perform this action.');
+
+  return res.send(401,{
+    //must include status code in message body
+    //for socket to recognize it
+    status:401,
+    error:'You must be logged in to do this.'
+  });
 };

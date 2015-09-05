@@ -26,7 +26,13 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': false,
+  PostController:{
+    create: ['sessionAuth'],
+    update: ['sessionAuth','isOwner'],
+    destroy: ['sessionAuth','isOwner']
+  }
+
+  // '*': ['sessionAuth'],
   // UserController: {
   //   '*': false,
   //   update: true,

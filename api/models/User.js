@@ -34,7 +34,15 @@ module.exports = {
       var obj = this.toObject();
       delete obj.password;
       return obj;
+    },
+
+    /////associations
+
+    posts:{
+      collection:'Post',
+      via:'owner'
     }
+
   },
   beforeCreate: function(values, callback) {
     bcrypt.hash(values.password, 10, function(err,hash){
