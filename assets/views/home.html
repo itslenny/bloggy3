@@ -11,6 +11,7 @@
       <th ng-click="orderField='id'" ng-class="{'active':orderField=='id'}">Id</th>
       <th ng-click="orderField='title'" ng-class="{'active':orderField=='title'}">Title</th>
       <th ng-click="orderField='createdAt'" ng-class="{'active':orderField=='createdAt'}">Created</th>
+      <th>Owner</th>
       <th></th>
     </tr>
   </thead>
@@ -19,9 +20,10 @@
       <td>{{post.id}}</td>
       <td><a href="/post/{{post.id}}">{{post.title}}</a></td>
       <td>{{post.createdAt | date: 'short'}}</td>
+      <td>{{post.owner.firstName || post.owner.id}}</td>
       <td>
-        <a ng-click="deletePost(post)" class="glyphicon glyphicon-trash"></a>
-        <a ng-click="editPost(post)" class="glyphicon glyphicon-pencil"></a>
+        <a ng-show="post.owner.id == currentUser.id" ng-click="deletePost(post)" class="glyphicon glyphicon-trash"></a>
+        <a ng-show="post.owner.id == currentUser.id" ng-click="editPost(post)" class="glyphicon glyphicon-pencil"></a>
       </td>
     </tr>
   </tbody>

@@ -1,4 +1,9 @@
-BloggyApp.controller('HomeCtrl', ['$scope','$rootScope','Post','$modal', 'AlertService', function($scope, $rootScope, Post, $modal, AlertService){
+BloggyApp.controller('HomeCtrl', ['$scope','$rootScope','Post','$modal', 'AlertService', 'UserService', function($scope, $rootScope, Post, $modal, AlertService, UserService){
+
+  $scope.UserService = UserService;
+  $scope.$watchCollection('UserService',function(){
+    $scope.currentUser = UserService.currentUser;
+  });
 
   AlertService.clear();
 

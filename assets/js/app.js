@@ -1,8 +1,14 @@
 var BloggyApp = angular.module('BloggyApp',['ui.bootstrap','ngRoute','sailsResource','ngMessages']);
 
-BloggyApp.run(function(){
+BloggyApp.run(['UserService',function(UserService){
+
   console.log('Bloggy reporting for duty.');
-});
+
+  UserService.check(function(err,data){
+    console.log('checking...',err,data);
+  });
+
+}]);
 
 BloggyApp.config(['$routeProvider','$locationProvider','sailsResourceProvider', function($routeProvider, $locationProvider, sailsResourceProvider){
 
