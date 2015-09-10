@@ -5,27 +5,54 @@
 
 <alerts></alerts>
 
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th ng-click="orderField='id'" ng-class="{'active':orderField=='id'}">Id</th>
-      <th ng-click="orderField='title'" ng-class="{'active':orderField=='title'}">Title</th>
-      <th ng-click="orderField='createdAt'" ng-class="{'active':orderField=='createdAt'}">Created</th>
-      <th>Owner</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="post in (posts | orderBy:orderField) track by post.id">
-      <td>{{post.id}}</td>
-      <td><a href="/post/{{post.id}}">{{post.title}}</a></td>
-      <td>{{post.createdAt | date: 'short'}}</td>
-      <td>{{post.owner.firstName || post.owner.id}}</td>
-      <td>
-        <a ng-show="post.owner.id == currentUser.id" ng-click="deletePost(post)" class="glyphicon glyphicon-trash"></a>
-        <a ng-show="post.owner.id == currentUser.id" ng-click="editPost(post)" class="glyphicon glyphicon-pencil"></a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-sm-8">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th ng-click="orderField='id'" ng-class="{'active':orderField=='id'}">Id</th>
+          <th ng-click="orderField='title'" ng-class="{'active':orderField=='title'}">Title</th>
+          <th ng-click="orderField='createdAt'" ng-class="{'active':orderField=='createdAt'}">Created</th>
+          <th>Owner</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="post in (posts | orderBy:orderField) track by post.id">
+          <td>{{post.id}}</td>
+          <td><a href="/post/{{post.id}}">{{post.title}}</a></td>
+          <td>{{post.createdAt | date: 'short'}}</td>
+          <td>{{post.owner.firstName || post.owner.id}}</td>
+          <td>
+            <a ng-show="post.owner.id == currentUser.id" ng-click="deletePost(post)" class="glyphicon glyphicon-trash"></a>
+            <a ng-show="post.owner.id == currentUser.id" ng-click="editPost(post)" class="glyphicon glyphicon-pencil"></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-sm-4" ng-controller="ChatCtrl">
+    <h3>Chat</h3>
+    <div ng-hide="currentUser">
+      Please log in to use chat...
+    </div>
+    <div class="chat-window" ng-show="currentUser">
+      <ul class="chat-list">
+        <li ng-repeat="msg in messages">
+          <b>{{msg.from}}:</b> {{msg.msg}}
+        </li>
+      </ul>
+      <form class="inline-form" ng-submit="sendMsg()">
+        <input ng-model="msgText" type="text" placeholder="Say something">
+        <button class="btn btn-xs btn-primary" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 

@@ -41,6 +41,10 @@ module.exports.routes = {
   'post /api/auth':'AuthController.login',
   'delete /api/auth':'AuthController.logout',
 
+  //Chat routes
+  'post /api/chat/join':'ChatController.join',
+  'post /api/chat/post':'ChatController.post',
+
   "get *":{
     controller:"PagesController",
     action:"index",
